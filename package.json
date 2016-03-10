@@ -1,12 +1,8 @@
 {
-  "name": "marble-something",
+  "name": "react-mini-starter",
   "version": "0.0.1",
-  "description": "Ultra simple example with MobX inspired by the [great talk](https://youtu.be/ZVYVtUFDf28) of [Andrew Clark](https://github.com/acdlite)",
+  "description": "A ridiculously small boilerplate to start developing with ES6/ES7/React/Webpack/HMR",
   "main": "server.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
-  },
   "devDependencies": {
     "babel-core": "^6.3.26",
     "babel-loader": "^6.2.0",
@@ -23,6 +19,18 @@
     "react": "15.0.0-rc.1",
     "react-dom": "^0.14.0"
   },
+  "scripts": {
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mr-wildcard/react-mini-starter.git"
+  },
+  "keywords": [],
   "author": "Julien Viala <jviala@mirane.com>",
-  "license": "ISC"
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mr-wildcard/react-mini-starter/issues"
+  },
+  "homepage": "https://github.com/mr-wildcard/react-mini-starter#readme"
 }
