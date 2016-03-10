@@ -6,7 +6,7 @@ class App extends Component {
 
     return (
       <div>
-        prout
+        Hello World
       </div>
     );
   }
