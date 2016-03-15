@@ -5,7 +5,7 @@
 - No isomorphico-universal stuff
 - No CSS preprocessors
 
-## Usage
+### Usage
 ```
 $ npm start
 ```
