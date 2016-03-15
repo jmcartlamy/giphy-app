@@ -10,6 +10,6 @@
 $ npm start
 ```
 
-then go to http://localhost:3000/
+then browse http://localhost:3000/
 
 Uses React@^15.*
