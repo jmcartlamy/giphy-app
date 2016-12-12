@@ -1,9 +1,41 @@
+<!DOCTYPE html>
 <html>
 <head>
-    <title>React!</title>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=0" />
+
+    <title>Giphy App</title>
+
 </head>
+
 <body>
-<div id="root"></div>
+
+    <header>
+        <form id="form">
+            <input type="text" name="removeSearch" value="&#9587;">
+            <input type="text" name="search">
+            <input type="submit" value="&#128269;">
+        </form>
+
+
+        <nav>
+            <ul>
+                <li data-path="search">Search</li>
+                <li data-path="trending">Trending</li>
+                <li data-path="favourites">Favourites</li>
+                <li data-path="random">Random</li>
+            </ul>
+        </nav>
+    </header>
+
+
+    <div id="content" class="wrapper">
+
+    </div>
+
+
 <script src="/static/bundle.js"></script>
+
 </body>
 </html>
