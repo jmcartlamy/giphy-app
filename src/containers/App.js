@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import SearchForm from '../components/SearchForm';
+import Tabs from '../components/Tabs';
 
 class App extends Component {
 
@@ -9,7 +10,10 @@ class App extends Component {
       <div>
         Hello World
       </div>
+      <header>
         <SearchForm formId="form" />
+        <Tabs />
+      </header>
     );
   }
 }
