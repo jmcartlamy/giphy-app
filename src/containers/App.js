@@ -77,7 +77,7 @@ class App extends Component {
 
                 <div className="wrapper">
                     <div className={resultsCSSClassnames}>
-                        {!search && <img src="../../assets/magnifier-512.png" />}
+                        {!search && <img className="search-watermark" src="../assets/magnifier-512.png" />}
                         {loading && <p>Chargement en cours...</p>}
                         {!gifElements.length && search && !loading && <p>Aucun résultats</p>}
                         {gifElements}
