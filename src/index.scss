@@ -15,7 +15,7 @@ header {
   padding: 2rem 0 1rem;
 }
 
-#form {
+form {
   display: flex;
   justify-content: center;
   margin: 2rem 1rem;
@@ -52,13 +52,14 @@ header {
     cursor: pointer;
   }
 
-  input[name="removeSearch"] {
+  button {
+    border: none;
+    outline-style: none;
     background-color: transparent;
     font-size: 2rem;
-    width: 2rem;
-    margin-left: -4rem;
+    width: 3rem;
+    margin-left: -3rem;
     cursor: pointer;
-    display: none;
   }
 }
 
@@ -162,10 +163,9 @@ nav {
   .results-column {
     column-count: 2;
   }
-  #form {
-    input[name="removeSearch"] {
+  form {
+    button {
       margin-left: 0;
-      padding-left: 0.5rem;
       padding-right: 1.5rem;
     }
     input[name="search"] {
