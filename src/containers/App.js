@@ -37,7 +37,7 @@ class App extends Component {
         })
         .then((response) => {
             const gifElements = response.data.data.map((gifData, index) => {
-                return <div><div><span>&#9734;</span></div><img src={gifData.images.fixed_width.webp} key={`gif-${index}`} /></div>
+                return <div key={`gif-${index}`}><div><span>&#9734;</span></div><img src={gifData.images.fixed_width.webp} /></div>
             });
 
             this.setState({
