@@ -46,7 +46,7 @@ class SearchForm extends Component {
                 }
 
                 <input ref="searchInput" type="text" name="search" onChange={this.onSearchChangedHandler} />
-                <input type="submit" value="&#128269;" />
+                <input type="submit" value="🔍" />
             </form>
         )
     }
