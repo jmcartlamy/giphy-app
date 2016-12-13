@@ -1,12 +1,12 @@
-import React, { Component } from 'react';
 import React, {Component} from 'react';
 import axios from 'axios';
+import cs from 'classnames';
+
 import SearchForm from '../components/SearchForm';
 import Tabs from '../components/Tabs';
 
 class App extends Component {
 
-  render() {
     constructor() {
         super();
 
@@ -50,6 +50,12 @@ class App extends Component {
     render() {
 
         const { search, loading, gifElements } = this.state;
+        const resultsCSSClassnames = cs(
+            'results',
+            {
+                'results-column': gifElements.length > 1
+            }
+        );
 
         return (
             <div className="giphy">
@@ -59,8 +65,10 @@ class App extends Component {
                 </header>
 
                 <div className="wrapper">
+                    <div className={resultsCSSClassnames}>
                         {loading && <p>Chargement en cours...</p>}
                         {gifElements}
+                    </div>
                 </div>
             </div>
         );
