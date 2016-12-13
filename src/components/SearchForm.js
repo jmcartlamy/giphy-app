@@ -34,6 +34,8 @@ class SearchForm extends Component {
         this.setState({
             showClearCross: false
         });
+
+        this.props.onClickClearCrossCallback();
     }
 
     render() {

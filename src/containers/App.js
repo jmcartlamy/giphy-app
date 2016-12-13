@@ -11,6 +11,7 @@ class App extends Component {
         super();
 
         this.onSearchChangedHandler = this.onSearchChangedHandler.bind(this);
+        this.onClickClearCross = this.onClickClearCross.bind(this);
 
         this.state = {
             search: false,
@@ -49,6 +50,14 @@ class App extends Component {
         });
     }
 
+    onClickClearCross() {
+        this.setState({
+            search: false,
+            loading: false,
+            gifElements: []
+        });
+    }
+
     render() {
 
         const { search, loading, gifElements } = this.state;
@@ -62,12 +71,13 @@ class App extends Component {
         return (
             <div className="giphy">
                 <header>
-                    <SearchForm onSearchChangedCallback={this.onSearchChangedHandler} />
+                    <SearchForm onSearchChangedCallback={this.onSearchChangedHandler} onClickClearCrossCallback={this.onClickClearCross} />
                     <Tabs />
                 </header>
 
                 <div className="wrapper">
                     <div className={resultsCSSClassnames}>
+                        {!search && <img src="../../assets/magnifier-512.png" />}
                         {loading && <p>Chargement en cours...</p>}
                         {!gifElements.length && search && !loading && <p>Aucun résultats</p>}
                         {gifElements}
