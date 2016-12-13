@@ -6,6 +6,7 @@ class SearchForm extends Component {
         super();
 
         this.onSearchChangedHandler = this.onSearchChangedHandler.bind(this);
+        this.onSubmitSearchHandler = this.onSubmitSearchHandler.bind(this);
         this.onClickClearCross = this.onClickClearCross.bind(this);
 
         this.state = {
@@ -19,6 +20,14 @@ class SearchForm extends Component {
         });
     }
 
+    onSubmitSearchHandler(e) {
+        e.preventDefault();
+
+        if (this.refs.searchInput.value.length > 0) {
+            this.props.onSearchChangedCallback(this.refs.searchInput.value);
+        }
+    }
+
     onClickClearCross() {
         this.refs.searchInput.value = '';
 
@@ -26,9 +35,12 @@ class SearchForm extends Component {
             showClearCross: false
         });
     }
+
+    render() {
         const { showClearCross } = this.state;
 
         return (
+            <form onSubmit={this.onSubmitSearchHandler}>
                 {showClearCross &&
                     <button type="button" onClick={this.onClickClearCross}>&#9587;</button>
                 }
