@@ -13,6 +13,7 @@ class App extends Component {
         this.onSearchChangedHandler = this.onSearchChangedHandler.bind(this);
 
         this.state = {
+            search: false,
             loading: false,
             gifElements: []
         }
@@ -21,6 +22,7 @@ class App extends Component {
     onSearchChangedHandler(search) {
 
         this.setState({
+            search: true,
             loading: true,
             gifElements: []
         });
@@ -67,6 +69,7 @@ class App extends Component {
                 <div className="wrapper">
                     <div className={resultsCSSClassnames}>
                         {loading && <p>Chargement en cours...</p>}
+                        {!gifElements.length && search && !loading && <p>Aucun résultats</p>}
                         {gifElements}
                     </div>
                 </div>
