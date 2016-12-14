@@ -14,6 +14,7 @@ class App extends Component {
         this.onSearchChangedHandler = this.onSearchChangedHandler.bind(this);
         this.onClickClearCross = this.onClickClearCross.bind(this);
         this.onFavGifClick = this.onFavGifClick.bind(this);
+        this.onClickTabHandler = this.onClickTabHandler.bind(this);
 
         const favs = (typeof(Storage) !== 'undefined' && localStorage.getItem('favourites') !== null) ?
             JSON.parse(localStorage.getItem('favourites')) :
@@ -96,6 +97,10 @@ class App extends Component {
         });
     }
 
+    onClickTabHandler(dataPath) {
+        console.log('App dataPath:', dataPath);
+    }
+
     render() {
 
         const { search, loading, gifsData } = this.state;
@@ -110,7 +115,7 @@ class App extends Component {
             <div className="giphy">
                 <header>
                     <SearchForm onSearchChangedCallback={this.onSearchChangedHandler} onClickClearCrossCallback={this.onClickClearCross} />
-                    <Tabs />
+                    <Tabs onClickTabCallback={this.onClickTabHandler} />
                 </header>
 
                 <div className="wrapper">

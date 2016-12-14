@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import TabItem from './TabItem';
 
 const tabs = [
@@ -20,20 +20,37 @@ const tabs = [
     }
 ];
 
-const Tabs = () => {
-    return (
-        <nav>
-            <ul>
-                {tabs.map((tab, index) => (
-                    <TabItem
-                        key={`tab-${index}`}
-                        dataPath={tab.dataPath}
-                        name={tab.name}
-                    />
-                ))}
-            </ul>
-        </nav>
-    )
+class Tabs extends Component {
+    constructor(props) {
+        super();
+
+        this.tabs = tabs.map(tab =>
+            Object.assign(
+                {},
+                tab,
+                {
+                    onClickHandler: props.onClickTabCallback.bind(null, tab.dataPath)
+                }
+            )
+        );
+    }
+
+    render() {
+        return (
+            <nav>
+                <ul>
+                    {this.tabs.map((tab, index) => (
+                        <TabItem
+                            key={`tab-${index}`}
+                            dataPath={tab.dataPath}
+                            name={tab.name}
+                            onClickHandler={tab.onClickHandler}
+                        />
+                    ))}
+                </ul>
+            </nav>
+        )
+    }
 };
 
 export default Tabs;
