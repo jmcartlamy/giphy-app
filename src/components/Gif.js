@@ -10,7 +10,7 @@ class Gif extends Component {
     }
 
     onClickFavHandler() {
-        this.props.onFavGifClickCallback(this.props.gifId);
+        this.props.onClickFavGifCallback(this.props.gifId);
     }
 
     render() {

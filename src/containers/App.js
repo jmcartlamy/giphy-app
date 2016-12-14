@@ -13,7 +13,7 @@ class App extends Component {
 
         this.onSubmitSearchHandler = this.onSubmitSearchHandler.bind(this);
         this.onClickClearCross = this.onClickClearCross.bind(this);
-        this.onFavGifClick = this.onFavGifClick.bind(this);
+        this.onClickFavGif = this.onClickFavGif.bind(this);
         this.onClickTabHandler = this.onClickTabHandler.bind(this);
 
         const favs = (typeof(Storage) !== 'undefined' && localStorage.getItem('favourites') !== null) ?
@@ -29,7 +29,7 @@ class App extends Component {
         }
     }
 
-    onFavGifClick(idFav) {
+    onClickFavGif(idFav) {
         const currentFavs = this.state.listFavGifIDs;
         const gifIsFaved = currentFavs.indexOf(idFav) > -1;
         let newFavs = [];
@@ -118,7 +118,7 @@ class App extends Component {
                     gifId={gifData.id}
                     gifSrc={gifData.images.fixed_width.webp}
                     gifFav={this.state.listFavGifIDs.indexOf(gifData.id) > -1}
-                    onFavGifClickCallback={this.onFavGifClick}
+                    onClickFavGifCallback={this.onClickFavGif}
                 />
             );
         });
