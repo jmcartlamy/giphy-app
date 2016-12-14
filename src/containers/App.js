@@ -21,9 +21,9 @@ class App extends Component {
             [];
 
         this.state = {
-            search: false,
-            loading: false,
             path: 'search',
+            isRequesting: false,
+            isLoading: false,
             gifsData: [],
             listFavGifIDs: favs
         }
@@ -53,9 +53,9 @@ class App extends Component {
     onSearchChangedHandler(search) {
 
         this.setState({
-            search: true,
-            loading: true,
             path: 'search',
+            isRequesting: true,
+            isLoading: true,
             gifsData: []
         });
 
@@ -68,7 +68,7 @@ class App extends Component {
         })
             .then((response) => {
                 this.setState({
-                    loading: false,
+                    isLoading: false,
                     gifsData: response.data.data,
                 })
             })
@@ -79,8 +79,8 @@ class App extends Component {
 
     onClickClearCross() {
         this.setState({
-            search: false,
-            loading: false,
+            isRequesting: false,
+            isLoading: false,
             gifsData: [],
         });
     }
@@ -145,7 +145,7 @@ class App extends Component {
 
     render() {
 
-        const { search, loading, gifsData } = this.state;
+        const { isRequesting, isLoading, gifsData } = this.state;
         const resultsCSSClassnames = cs(
             'results',
             {
@@ -162,9 +162,9 @@ class App extends Component {
 
                 <div className="wrapper">
                     <div className={resultsCSSClassnames}>
-                        {!search && <img className="search-watermark" src="../assets/magnifier-512.png" />}
-                        {loading && <p>Chargement en cours...</p>}
-                        {!gifsData.length && search && !loading && <p>Aucun résultats</p>}
+                        {!isRequesting && <img className="search-watermark" src="../assets/magnifier-512.png" />}
+                        {isLoading && <p>Chargement en cours...</p>}
+                        {!gifsData.length && isRequesting && !isLoading && <p>Aucun résultats</p>}
                         {this.renderGifsElement(gifsData)}
                     </div>
                 </div>
