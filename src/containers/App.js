@@ -24,6 +24,7 @@ class App extends Component {
             path: 'search',
             isRequesting: false,
             isLoading: false,
+            requestString: '',
             gifsData: [],
             listFavGifIDs: favs
         }
@@ -56,6 +57,7 @@ class App extends Component {
             path: 'search',
             isRequesting: true,
             isLoading: true,
+            requestString: search,
             gifsData: []
         });
 
@@ -81,7 +83,8 @@ class App extends Component {
         this.setState({
             isRequesting: false,
             isLoading: false,
-            gifsData: [],
+            requestString: '',
+            gifsData: []
         });
     }
 
@@ -189,13 +192,19 @@ class App extends Component {
     onClickTabHandler(dataPath) {
 
         if (dataPath === 'search') {
-            this.onClickClearCross();
+            const requestString = this.state.requestString;
+            if(requestString.length > 0) {
+                this.onSubmitSearchHandler(this.state.requestString);
+            } else {
+                this.onClickClearCross();
+            }
 
         } else if (dataPath === 'trending')  {
             this.onTabTrending();
 
         } else if(dataPath === 'favourites') {
             this.onTabFavourites();
+
         } else {
             this.onTabRandom();
         }
