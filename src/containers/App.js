@@ -135,6 +135,30 @@ class App extends Component {
             });
     }
 
+    onTabRandom() {
+
+        this.setState({
+            isRequesting: true,
+            isLoading: true,
+            gifsData: []
+        });
+
+        axios.get('http://api.giphy.com/v1/gifs/random', {
+            params: {
+                api_key: "dc6zaTOxFJmzC"
+            }
+        })
+            .then((response) => {
+                this.setState({
+                    isLoading: false,
+                    gifsData: response.data.data,
+                })
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }
+
     renderGifsElement(gifsData) {
         return gifsData.map((gifData, index) => {
             return (
@@ -149,6 +173,19 @@ class App extends Component {
         });
     }
 
+    renderGifElementRandom(gifData) {
+        console.log(gifData)
+        return (
+            <Gif
+                key="gif-1"
+                gifId={gifData.id}
+                gifSrc={gifData.image_url}
+                gifFav={this.state.listFavGifIDs.indexOf(gifData.id) > -1}
+                onClickFavGifCallback={this.onClickFavGif}
+            />
+        );
+    }
+
     onClickTabHandler(dataPath) {
 
         if (dataPath === 'search') {
@@ -160,7 +197,7 @@ class App extends Component {
         } else if(dataPath === 'favourites') {
             this.onTabFavourites();
         } else {
-            //
+            this.onTabRandom();
         }
 
         this.setState({
@@ -170,7 +207,7 @@ class App extends Component {
 
     render() {
 
-        const { isRequesting, isLoading, gifsData } = this.state;
+        const { path, isRequesting, isLoading, gifsData } = this.state;
         const resultsCSSClassnames = cs(
             'results',
             {
@@ -189,8 +226,8 @@ class App extends Component {
                     <div className={resultsCSSClassnames}>
                         {!isRequesting && <img className="search-watermark" src="../assets/magnifier-512.png" />}
                         {isLoading && <p>Chargement en cours...</p>}
-                        {!gifsData.length && isRequesting && !isLoading && <p>Aucun résultats</p>}
-                        {this.renderGifsElement(gifsData)}
+                        {path !== 'random' && this.renderGifsElement(gifsData)}
+                        {path === 'random' && this.renderGifElementRandom(gifsData)}
                     </div>
                 </div>
             </div>
