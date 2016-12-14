@@ -110,6 +110,31 @@ class App extends Component {
             });
     }
 
+    onTabFavourites() {
+
+        this.setState({
+            isRequesting: true,
+            isLoading: true,
+            gifsData: []
+        });
+
+        axios.get('http://api.giphy.com/v1/gifs', {
+            params: {
+                api_key: "dc6zaTOxFJmzC",
+                ids: this.state.listFavGifIDs.toString()
+            }
+        })
+            .then((response) => {
+                this.setState({
+                    isLoading: false,
+                    gifsData: response.data.data,
+                })
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }
+
     renderGifsElement(gifsData) {
         return gifsData.map((gifData, index) => {
             return (
@@ -133,7 +158,7 @@ class App extends Component {
             this.onTabTrending();
 
         } else if(dataPath === 'favourites') {
-            //
+            this.onTabFavourites();
         } else {
             //
         }
