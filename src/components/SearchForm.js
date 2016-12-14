@@ -24,7 +24,7 @@ class SearchForm extends Component {
         e.preventDefault();
 
         if (this.refs.searchInput.value.length > 0) {
-            this.props.onSearchChangedCallback(this.refs.searchInput.value);
+            this.props.onSubmitSearchCallback(this.refs.searchInput.value);
         }
     }
 

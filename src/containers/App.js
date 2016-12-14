@@ -11,7 +11,7 @@ class App extends Component {
     constructor() {
         super();
 
-        this.onSearchChangedHandler = this.onSearchChangedHandler.bind(this);
+        this.onSubmitSearchHandler = this.onSubmitSearchHandler.bind(this);
         this.onClickClearCross = this.onClickClearCross.bind(this);
         this.onFavGifClick = this.onFavGifClick.bind(this);
         this.onClickTabHandler = this.onClickTabHandler.bind(this);
@@ -50,7 +50,7 @@ class App extends Component {
         localStorage.setItem('favourites', JSON.stringify(newFavs));
     }
 
-    onSearchChangedHandler(search) {
+    onSubmitSearchHandler(search) {
 
         this.setState({
             path: 'search',
@@ -156,7 +156,7 @@ class App extends Component {
         return (
             <div className="giphy">
                 <header>
-                    <SearchForm onSearchChangedCallback={this.onSearchChangedHandler} onClickClearCrossCallback={this.onClickClearCross} />
+                    <SearchForm onSubmitSearchCallback={this.onSubmitSearchHandler} onClickClearCrossCallback={this.onClickClearCross} />
                     <Tabs onClickTabCallback={this.onClickTabHandler} />
                 </header>
 
