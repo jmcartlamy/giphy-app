@@ -23,6 +23,7 @@ class App extends Component {
         this.state = {
             search: false,
             loading: false,
+            path: 'search',
             gifsData: [],
             listFavGifIDs: favs
         }
@@ -54,6 +55,7 @@ class App extends Component {
         this.setState({
             search: true,
             loading: true,
+            path: 'search',
             gifsData: []
         });
 
@@ -83,6 +85,31 @@ class App extends Component {
         });
     }
 
+    onTabTrending() {
+        
+        this.setState({
+            isRequesting: true,
+            isLoading: true,
+            gifsData: []
+        });
+
+        axios.get('http://api.giphy.com/v1/gifs/trending', {
+            params: {
+                api_key: "dc6zaTOxFJmzC",
+                limit: 10
+            }
+        })
+            .then((response) => {
+                this.setState({
+                    isLoading: false,
+                    gifsData: response.data.data,
+                })
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }
+
     renderGifsElement(gifsData) {
         return gifsData.map((gifData, index) => {
             return (
@@ -98,7 +125,22 @@ class App extends Component {
     }
 
     onClickTabHandler(dataPath) {
-        console.log('App dataPath:', dataPath);
+
+        if (dataPath === 'search') {
+            this.onClickClearCross();
+
+        } else if (dataPath === 'trending')  {
+            this.onTabTrending();
+
+        } else if(dataPath === 'favourites') {
+            //
+        } else {
+            //
+        }
+
+        this.setState({
+            path: dataPath
+        });
     }
 
     render() {
