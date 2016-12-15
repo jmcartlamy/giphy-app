@@ -8,6 +8,11 @@ class Gif extends Component {
 
         this.onClickFavHandler = this.onClickFavHandler.bind(this);
         this.onLoadGifHandler = this.onLoadGifHandler.bind(this);
+
+        this.state = {
+            loaded: false,
+            heightGif: 0
+        }
     }
 
     onClickFavHandler() {
@@ -17,14 +22,17 @@ class Gif extends Component {
     onLoadGifHandler(e) {
         const clientHeight = e.target.clientHeight;
 
-        if (clientHeight !== 0) {
-            e.target.previousElementSibling.setAttribute("style", "height: " + clientHeight + "px");
-        }
+        this.setState({
+            loaded: true,
+            heightGif: clientHeight
+        });
+
     }
 
     render() {
 
         const { gifSrc, gifFav } = this.props;
+        const { loaded, heightGif } = this.state;
 
         const gifCSSClassnames = cs(
             'containerGifs__overlay__iconFav',
@@ -34,11 +42,13 @@ class Gif extends Component {
         );
 
         return (
-            <div>
-                <div>
-                    <span className={gifCSSClassnames} onClick={this.onClickFavHandler}>&#9734;</span>
-                </div>
-                <img src={gifSrc} onLoad={this.onLoadGifHandler} />
+            <div className="containerGifs">
+                {loaded &&
+                    <div className="containerGifs__overlay" style={{height: heightGif + 'px'}}>
+                        <span className={gifCSSClassnames} onClick={this.onClickFavHandler}>&#9734;</span>
+                    </div>
+                }
+                <img className="containerGifs__gifItem" src={gifSrc} onLoad={this.onLoadGifHandler} />
             </div>
         )
     }
