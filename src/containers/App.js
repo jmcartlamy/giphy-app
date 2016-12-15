@@ -24,6 +24,7 @@ class App extends Component {
             path: 'search',
             isRequesting: false,
             isLoading: false,
+            showLoadingMessage: false,
             requestString: '',
             gifsData: [],
             listFavGifIDs: favs
@@ -48,26 +49,27 @@ class App extends Component {
         localStorage.setItem('favourites', JSON.stringify(newFavs));
     }
 
-    onSubmitSearchHandler(search) {
+    fetchOnAPIGiphy(url, params) {
 
         this.setState({
-            path: 'search',
             isRequesting: true,
             isLoading: true,
-            requestString: search,
             gifsData: []
         });
 
-        axios.get('http://api.giphy.com/v1/gifs/search', {
-            params: {
-                q: search,
-                api_key: "dc6zaTOxFJmzC",
-                limit: 10
+        setTimeout(() => {
+            if (this.state.isLoading) {
+                this.setState({ showLoadingMessage: true });
             }
+        }, 500);
+
+        axios.get(url, {
+            params: params
         })
             .then((response) => {
                 this.setState({
                     isLoading: false,
+                    showLoadingMessage: false,
                     gifsData: response.data.data,
                 })
             })
@@ -85,78 +87,40 @@ class App extends Component {
         });
     }
 
-    onTabTrending() {
-        
+    onSubmitSearchHandler(search) {
+
         this.setState({
-            isRequesting: true,
-            isLoading: true,
-            gifsData: []
+            requestString: search
         });
 
-        axios.get('http://api.giphy.com/v1/gifs/trending', {
-            params: {
-                api_key: "dc6zaTOxFJmzC",
-                limit: 10
-            }
-        })
-            .then((response) => {
-                this.setState({
-                    isLoading: false,
-                    gifsData: response.data.data,
-                })
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
+        this.fetchOnAPIGiphy("http://api.giphy.com/v1/gifs/search",
+            { q: search,
+            api_key: "dc6zaTOxFJmzC",
+            limit: 10 }
+        )
+    }
+
+    onTabTrending() {
+
+        this.fetchOnAPIGiphy("http://api.giphy.com/v1/gifs/trending",
+            {  api_key: "dc6zaTOxFJmzC",
+                limit: 10 }
+        );
     }
 
     onTabFavourites() {
 
-        this.setState({
-            isRequesting: true,
-            isLoading: true,
-            gifsData: []
-        });
-
-        axios.get('http://api.giphy.com/v1/gifs', {
-            params: {
-                api_key: "dc6zaTOxFJmzC",
-                ids: this.state.listFavGifIDs.toString()
-            }
-        })
-            .then((response) => {
-                this.setState({
-                    isLoading: false,
-                    gifsData: response.data.data,
-                })
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
+        this.fetchOnAPIGiphy("http://api.giphy.com/v1/gifs",
+            {  api_key: "dc6zaTOxFJmzC",
+                ids: this.state.listFavGifIDs.toString() }
+        )
     }
 
     onTabRandom() {
 
-        this.setState({
-            isRequesting: true,
-            isLoading: true,
-            gifsData: []
-        });
-
-        axios.get('http://api.giphy.com/v1/gifs/random', {
-            params: {
-                api_key: "dc6zaTOxFJmzC"
-            }
-        })
-            .then((response) => {
-                this.setState({
-                    isLoading: false,
-                    gifsData: response.data.data,
-                })
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
+        this.fetchOnAPIGiphy("http://api.giphy.com/v1/gifs/random",
+            {  api_key: "dc6zaTOxFJmzC" }
+        )
     }
 
     renderGifsElement(gifsData) {
@@ -212,7 +176,7 @@ class App extends Component {
 
     render() {
 
-        const { path, isRequesting, isLoading, gifsData } = this.state;
+        const { path, isRequesting, isLoading, showLoadingMessage, gifsData } = this.state;
         const resultsCSSClassnames = cs(
             'results',
             {
@@ -230,7 +194,7 @@ class App extends Component {
                 <div className="wrapper">
                     <div className={resultsCSSClassnames}>
                         {!isRequesting && <img className="results__noSearchWatermark" src="../assets/magnifier-512.png" />}
-                        {isLoading && <p className="results__loading">Chargement en cours...</p>}
+                        {showLoadingMessage && <p className="results__loading">Chargement en cours...</p>}
                         {path !== 'random' && !gifsData.length && isRequesting && !isLoading && <p className="results__nothing">Aucun résultats</p>}
                         {path !== 'random' && this.renderGifsElement(gifsData)}
                         {path === 'random' && this.renderGifElementRandom(gifsData)}
