@@ -7,10 +7,19 @@ class Gif extends Component {
         super();
 
         this.onClickFavHandler = this.onClickFavHandler.bind(this);
+        this.onLoadGifHandler = this.onLoadGifHandler.bind(this);
     }
 
     onClickFavHandler() {
         this.props.onClickFavGifCallback(this.props.gifId);
+    }
+
+    onLoadGifHandler(e) {
+        const clientHeight = e.target.clientHeight;
+
+        if (clientHeight !== 0) {
+            e.target.previousElementSibling.setAttribute("style", "height: " + clientHeight + "px");
+        }
     }
 
     render() {
@@ -28,7 +37,7 @@ class Gif extends Component {
                 <div>
                     <span className={gifCSSClassnames} onClick={this.onClickFavHandler}>&#9734;</span>
                 </div>
-                <img src={gifSrc} />
+                <img src={gifSrc} onLoad={this.onLoadGifHandler} />
             </div>
         )
     }

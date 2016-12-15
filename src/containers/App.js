@@ -42,8 +42,6 @@ class App extends Component {
             newFavs = currentFavs.concat([idFav]);
         }
 
-        console.log(newFavs);
-
         this.setState({
             listFavGifIDs: newFavs
         });
@@ -177,7 +175,6 @@ class App extends Component {
     }
 
     renderGifElementRandom(gifData) {
-        console.log(gifData)
         return (
             <Gif
                 key="gif-1"
