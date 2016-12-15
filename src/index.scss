@@ -92,6 +92,10 @@ header {
 .results {
   text-align: center;
 
+  &__loading, &__nothing {
+    font-size: 2rem;
+  }
+
   &__noSearchWatermark {
     opacity: 0.2;
     width: 100%;

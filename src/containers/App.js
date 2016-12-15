@@ -230,8 +230,8 @@ class App extends Component {
                 <div className="wrapper">
                     <div className={resultsCSSClassnames}>
                         {!isRequesting && <img className="results__noSearchWatermark" src="../assets/magnifier-512.png" />}
-                        {isLoading && <p>Chargement en cours...</p>}
-                        {path !== 'random' && !gifsData.length && isRequesting && !isLoading && <p>Aucun résultats</p>}
+                        {isLoading && <p className="results__loading">Chargement en cours...</p>}
+                        {path !== 'random' && !gifsData.length && isRequesting && !isLoading && <p className="results__nothing">Aucun résultats</p>}
                         {path !== 'random' && this.renderGifsElement(gifsData)}
                         {path === 'random' && this.renderGifElementRandom(gifsData)}
                     </div>
