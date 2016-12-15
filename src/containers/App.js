@@ -37,8 +37,7 @@ class App extends Component {
 
         if (gifIsFaved) {
             newFavs = currentFavs.filter(id => id !== idFav);
-        }
-        else {
+        } else {
             newFavs = currentFavs.concat([idFav]);
         }
 
@@ -171,7 +170,7 @@ class App extends Component {
                     onClickFavGifCallback={this.onClickFavGif}
                 />
             );
-        });
+        })
     }
 
     renderGifElementRandom(gifData) {

@@ -107,10 +107,20 @@ header {
   max-width: 40rem;
   margin: auto;
 
+  &.loading {
+    .containerGifs__gifItem {
+      visibility: hidden;
+    }
+  }
+
   &__gifItem {
     margin: 0 0 1rem;
     width: 100%;
     max-width: 40rem;
+  }
+
+  &__gifOnLoad {
+    margin: 5rem;
   }
 
   &__overlay {

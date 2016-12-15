@@ -15,6 +15,12 @@ class Gif extends Component {
         }
     }
 
+    componentWillReceiveProps(nextProps) {
+        if (this.props.gifId !== nextProps.gifId) {
+            this.setState({ loaded: false });
+        }
+    }
+
     onClickFavHandler() {
         this.props.onClickFavGifCallback(this.props.gifId);
     }
@@ -42,7 +48,12 @@ class Gif extends Component {
         );
 
         return (
-            <div className="containerGifs">
+            <div className={cs('containerGifs', {
+                loading: !loaded
+            })}>
+                {!loaded &&
+                     <img className="containerGifs__gifOnLoad" src="../assets/loading.svg"/>
+                }
                 {loaded &&
                     <div className="containerGifs__overlay" style={{height: heightGif + 'px'}}>
                         <span className={gifCSSClassnames} onClick={this.onClickFavHandler}>&#9734;</span>

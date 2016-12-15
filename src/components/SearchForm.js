@@ -52,6 +52,6 @@ class SearchForm extends Component {
             </form>
         )
     }
-};
+}
 
 export default SearchForm;
