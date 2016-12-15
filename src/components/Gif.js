@@ -27,8 +27,9 @@ class Gif extends Component {
         const { gifSrc, gifFav } = this.props;
 
         const gifCSSClassnames = cs(
+            'containerGifs__overlay__iconFav',
             {
-                'checked': gifFav === true
+                'containerGifs__overlay__iconFavChecked': gifFav === true
             }
         );
 

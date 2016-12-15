@@ -42,13 +42,13 @@ class SearchForm extends Component {
         const { showClearCross } = this.state;
 
         return (
-            <form onSubmit={this.onSubmitSearchHandler}>
+            <form className="formSearch" onSubmit={this.onSubmitSearchHandler}>
                 {showClearCross &&
-                    <button type="button" onClick={this.onClickClearCross}>&#9587;</button>
+                    <button type="button" className="formSearch__clearCross" onClick={this.onClickClearCross}>&#9587;</button>
                 }
 
-                <input ref="searchInput" type="text" name="search" onChange={this.onSearchChangedHandler} />
-                <input type="submit" value="🔍" />
+                <input ref="searchInput" type="text" className="formSearch__searchInput" onChange={this.onSearchChangedHandler} />
+                <input type="submit" className="formSearch__submit" value="🔍" />
             </form>
         )
     }

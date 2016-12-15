@@ -37,8 +37,8 @@ class Tabs extends Component {
 
     render() {
         return (
-            <nav>
-                <ul>
+            <nav className="navTabs">
+                <ul className="containerTabs">
                     {this.tabs.map((tab, index) => (
                         <TabItem
                             key={`tab-${index}`}
