@@ -80,6 +80,15 @@ header {
     display: flex;
     font-size: 2rem;
     cursor: pointer;
+
+    &__item {
+      text-decoration: none;
+      color: #000;
+    }
+
+    &__item__active {
+      border-bottom: 1px solid #000;
+    }
   }
 }
 
