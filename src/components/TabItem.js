@@ -1,5 +1,13 @@
 import React from 'react';
+import { Link } from 'react-router';
 
-const TabItem = (props) => <li className="containerTabs__tabItem" data-path={props.dataPath} onClick={props.onClickHandler}>{props.name}</li>;
-
+const TabItem = (props) => {
+    return(
+        <li className="containerTabs__tabItem">
+            <Link to={props.path}>
+                {props.name}
+            </Link>
+        </li>
+    );
+};
 export default TabItem;

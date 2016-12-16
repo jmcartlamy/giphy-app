@@ -3,36 +3,29 @@ import TabItem from './TabItem';
 
 const tabs = [
     {
-        dataPath: 'search',
+        path: 'search',
         name: 'Search'
     },
     {
-        dataPath: 'trending',
+        path: 'trending',
         name: 'Trending'
     },
     {
-        dataPath: 'favourites',
+        path: 'favourites',
         name: 'Favourites'
     },
     {
-        dataPath: 'random',
+        path: 'random',
         name: 'Random'
     }
 ];
 
 class Tabs extends Component {
-    constructor(props) {
+
+    constructor() {
         super();
 
-        this.tabs = tabs.map(tab =>
-            Object.assign(
-                {},
-                tab,
-                {
-                    onClickHandler: props.onClickTabCallback.bind(null, tab.dataPath)
-                }
-            )
-        );
+        this.tabs = tabs;
     }
 
     render() {
@@ -42,9 +35,8 @@ class Tabs extends Component {
                     {this.tabs.map((tab, index) => (
                         <TabItem
                             key={`tab-${index}`}
-                            dataPath={tab.dataPath}
+                            path={tab.path}
                             name={tab.name}
-                            onClickHandler={tab.onClickHandler}
                         />
                     ))}
                 </ul>
