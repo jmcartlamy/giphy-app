@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router';
 
 class SearchForm extends Component {
 
@@ -46,7 +47,13 @@ class SearchForm extends Component {
 
     render() {
         const { showClearCross, inputValue } = this.state;
-        const { initialValue } = this.props;
+        const {
+            location: {
+                query: {
+                    q: initialValue
+                }
+            }
+        } = this.props;
 
         return (
             <form className="formSearch" onSubmit={this.onSubmitSearchHandler}>
@@ -68,4 +75,4 @@ class SearchForm extends Component {
     }
 };
 
-export default SearchForm;
+export default withRouter(SearchForm);

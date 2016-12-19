@@ -12,7 +12,7 @@ class App extends Component {
         return (
             <div className="giphy">
                 <header>
-                    <SearchForm router={router} initialValue={location.query.q} />
+                    <SearchForm />
                     <Tabs />
                 </header>
 
