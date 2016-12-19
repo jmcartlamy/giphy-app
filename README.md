@@ -1,9 +1,14 @@
-## React Mini Starter
+## Giphy App
 
-- No routing
-- No Flux/Redux/etc
-- No isomorphico-universal stuff
-- No CSS preprocessors
+Find gifs easily with Giphy App. Fav' your best gifs in cache.
+
+Contains :
+- Search
+- Trending gifs
+- Watch your favourites
+- Random gif
+
+Built with ReactJS, React-router & Redux.
 
 ### Usage
 ```
@@ -12,4 +17,6 @@ $ npm start
 
 then browse http://localhost:3000/
 
-Uses React@^15.*
+### Note
+
+You are on vanilla-version. Check `react-version` for better performances.
