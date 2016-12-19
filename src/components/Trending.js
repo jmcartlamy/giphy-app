@@ -1,5 +1,5 @@
 import React from 'react';
-import Results from './results'
+import Results from './Results'
 
 const Trending = (props) => <Results type="trending" location={props.location} />;
 

@@ -7,8 +7,6 @@ class App extends Component {
 
     render() {
 
-        const { router, location } = this.props;
-
         return (
             <div className="giphy">
                 <header>

@@ -1,5 +1,5 @@
 import React from 'react';
-import Results from './results'
+import Results from './Results'
 
 const Random = (props) => <Results type="random" location={props.location} />;
 

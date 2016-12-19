@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios, { CancelToken } from 'axios';
 import cs from 'classnames';
-import Gif from '../components/Gif';
+import Gif from './Gif';
 
 class Results extends Component {
 
