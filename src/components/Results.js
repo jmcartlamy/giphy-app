@@ -28,12 +28,6 @@ class Results extends Component {
             gifsData: [],
             listFavGifIDs: favs
         };
-
-        setTimeout(() => {
-            if (this.state.isLoading) {
-                this.setState({ showLoadingMessage: true });
-            }
-        }, 500);
     }
 
     componentDidMount() {
@@ -44,6 +38,8 @@ class Results extends Component {
         if (this.source) {
           this.source.cancel();
         }
+
+        clearTimeout(this.loadingTimeOut);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -106,6 +102,16 @@ class Results extends Component {
     fetchOnAPIGiphy(url, params) {
 
         this.source = CancelToken.source();
+
+        this.setState({
+            isLoading: true
+        });
+
+        this.loadingTimeOut = setTimeout(() => {
+            if (this.state.isLoading) {
+                this.setState({ showLoadingMessage: true });
+            }
+        }, 500);
 
         axios.get(url, {
             params: params,
