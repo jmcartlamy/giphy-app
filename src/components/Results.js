@@ -15,7 +15,6 @@ class Results extends Component {
         this.fetchOnAPIGiphy = this.fetchOnAPIGiphy.bind(this);
         this.clearForm = this.clearForm.bind(this);
 
-        console.log(props.location.query);
         const typeRequest = props.type;
         const favs = (typeof(Storage) !== 'undefined' && localStorage.getItem('favourites') !== null) ?
             JSON.parse(localStorage.getItem('favourites')) :
