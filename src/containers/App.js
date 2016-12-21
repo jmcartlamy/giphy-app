@@ -1,9 +1,23 @@
 import React, {Component} from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
 import SearchForm from '../components/SearchForm';
 import Tabs from '../components/Tabs';
 
+import { userInput } from '../actions/searchActions';
+
+
 class App extends Component {
+
+    componentDidMount() {
+        const { location: { query: { q } } } = this.props;
+
+        if (q) {
+            this.props.userInput(q);
+        }
+
+    }
 
     render() {
 
@@ -22,4 +36,10 @@ class App extends Component {
     }
 }
 
-export default App;
+export default connect(null, (dispatch) => {
+    return {
+        userInput(input) {
+            dispatch(userInput(input));
+        }
+    }
+})(App);

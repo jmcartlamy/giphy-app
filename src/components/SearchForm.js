@@ -1,6 +1,12 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router';
 
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+
+import * as searchActions from '../actions/searchActions';
+
+
 class SearchForm extends Component {
 
     constructor() {
@@ -10,54 +16,38 @@ class SearchForm extends Component {
         this.onSubmitSearchHandler = this.onSubmitSearchHandler.bind(this);
         this.onClickClearCross = this.onClickClearCross.bind(this);
 
-        this.state = {
-            showClearCross: false
-        };
+    }
+
+    onClickClearCross() {
+        const { router, actions } = this.props;
+        router.push('/search');
+        actions.clearInput();
     }
 
     onSearchChangedHandler(e) {
-        const value = e.currentTarget.value;
-        this.setState({
-            showClearCross: value.length > 0
-        });
+        const value = e.target.value;
+        this.props.actions.userInput(value);
     }
 
     onSubmitSearchHandler(e) {
         e.preventDefault();
-        const { router } = this.props;
-        const searchInput = this.refs.searchInput.value;
-        router.push({
-            pathname: '/search',
-            query: {
-                q: searchInput || undefined
-            }
-        });
-        this.refs.searchInput.value = searchInput;
-    }
 
-    onClickClearCross() {
-        const { router } = this.props;
-        this.refs.searchInput.value = '';
-        router.push('/search');
-
-        this.setState({
-            showClearCross: false
-        });
+        const { router, userInput } = this.props;
+         router.push({
+             pathname: '/search',
+             query: {
+                q: userInput || undefined
+             }
+         });
     }
 
     render() {
-        const { showClearCross, inputValue } = this.state;
-        const {
-            location: {
-                query: {
-                    q: initialValue
-                }
-            }
-        } = this.props;
+
+        const { userInput } = this.props;
 
         return (
             <form className="formSearch" onSubmit={this.onSubmitSearchHandler}>
-                {showClearCross &&
+                {userInput.length > 0 &&
                     <button type="button" className="formSearch__clearCross" onClick={this.onClickClearCross}>&#9587;</button>
                 }
 
@@ -65,14 +55,28 @@ class SearchForm extends Component {
                     ref="searchInput"
                     type="text"
                     className="formSearch__searchInput"
-                    value={inputValue}
-                    defaultValue={initialValue}
+                    value={userInput}
                     onChange={this.onSearchChangedHandler}
                 />
                 <input type="submit" className="formSearch__submit" value="🔍" />
             </form>
         )
     }
+}
+
+const mapStateToProps = (state) => {
+    return {
+        userInput: state.userInput
+    }
 };
 
-export default withRouter(SearchForm);
+const mapDispatchToProps = (dispatch) => {
+    return {
+        actions: bindActionCreators(searchActions, dispatch)
+    }
+};
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(withRouter(SearchForm));
