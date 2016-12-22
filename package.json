@@ -12,6 +12,7 @@
     "babel-preset-react": "^6.3.13",
     "babel-preset-stage-1": "^6.3.13",
     "css-loader": "^0.26.1",
+    "jest": "^18.0.0",
     "react-hot-loader": "^2.0.0-alpha-4",
     "sass-loader": "^4.0.2",
     "style-loader": "^0.13.1",
@@ -28,7 +29,8 @@
     "redux": "^3.6.0"
   },
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "test": "jest"
   },
   "repository": {
     "type": "git",
