@@ -66,7 +66,7 @@ class SearchForm extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        userInput: state.userInput
+        userInput: state.userInputReducer
     }
 };
 

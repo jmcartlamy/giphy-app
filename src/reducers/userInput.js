@@ -10,6 +10,6 @@ function userInputReducer(state = '', action) {
             return state
     }
 
-};
+}
 
 export default userInputReducer;

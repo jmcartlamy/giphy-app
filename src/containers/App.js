@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 
 import SearchForm from '../components/SearchForm';
 import Tabs from '../components/Tabs';

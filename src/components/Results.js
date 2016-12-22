@@ -1,7 +1,14 @@
 import React, { Component } from 'react';
 import axios, { CancelToken } from 'axios';
 import cs from 'classnames';
+
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+
 import Gif from './Gif';
+
+import * as resultsActions from '../actions/resultsActions';
+
 
 class Results extends Component {
 
@@ -25,7 +32,6 @@ class Results extends Component {
             isRequesting: false,
             isLoading: false,
             showLoadingMessage: false,
-            gifsData: [],
             listFavGifIDs: favs
         };
     }
@@ -62,7 +68,8 @@ class Results extends Component {
     }
 
     clearForm() {
-        this.setState({ isRequesting: false, gifsData: [] });
+        this.setState({ isRequesting: false });
+        this.props.actions.clearGifs();
     }
 
     onClickTabHandler(typeRequest) {
@@ -120,9 +127,9 @@ class Results extends Component {
             .then((response) => {
                 this.setState({
                     isLoading: false,
-                    showLoadingMessage: false,
-                    gifsData: response.data.data,
-                })
+                    showLoadingMessage: false
+                });
+                this.props.actions.fetchSuccessGifs(response.data.data);
             })
             .catch(function (error) {
                 console.log(error);
@@ -193,7 +200,10 @@ class Results extends Component {
 
     render() {
 
-        const { path, isRequesting, isLoading, showLoadingMessage, gifsData } = this.state;
+        const { path, isRequesting, isLoading, showLoadingMessage } = this.state;
+        const { gifsData } = this.props;
+
+        console.log(this.props);
         const resultsCSSClassnames = cs(
             'results',
             {
@@ -213,5 +223,19 @@ class Results extends Component {
         )
     }
 }
+const mapStateToProps = (state) => {
+    return {
+       gifsData: state.gifsDataReducer
+    }
+};
 
-export default Results;
+const mapDispatchToProps = (dispatch) => {
+    return {
+        actions: bindActionCreators(resultsActions, dispatch)
+    }
+};
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(Results);

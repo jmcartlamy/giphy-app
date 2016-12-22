@@ -1,6 +1,8 @@
 import { combineReducers } from 'redux';
-import userInput from './userInput.js';
+import userInputReducer from './userInput.js';
+import gifsDataReducer from './gifsData.js';
 
 export default combineReducers({
-    userInput
+    userInputReducer,
+    gifsDataReducer
 });
