@@ -1,6 +1,9 @@
-import { createStore } from 'redux';
+import { createStore, applyMiddleware, compose } from 'redux';
 import rootReducer from '../reducers';
 import watch from 'redux-watch';
+import thunk from 'redux-thunk';
+
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 export default () => {
     const store = createStore(
@@ -8,7 +11,9 @@ export default () => {
         {
             gifsFavouritesReducer: JSON.parse(localStorage.getItem('favourites')) || []
         },
-        window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__() // doc devtools composeEnhancer thunk
+        composeEnhancers(
+            applyMiddleware(thunk)
+        )
     );
 
     /*
