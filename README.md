@@ -18,3 +18,7 @@ $ npm start
 then browse http://localhost:3000/
 
 Uses React@^15.* and React-router@^3.*
+
+### Note
+
+You are on react-version. Check `react-redux-version` for a app using redux.
