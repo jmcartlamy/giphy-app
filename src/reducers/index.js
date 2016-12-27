@@ -5,6 +5,6 @@ import gifsFavouritesReducer from './gifsFavourites.js';
 
 export default combineReducers({
     userInputReducer,
-    gifsDataReducer
+    gifsDataReducer,
     gifsFavouritesReducer
 });
