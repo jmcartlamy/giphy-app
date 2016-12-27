@@ -6,7 +6,7 @@ import { bindActionCreators } from 'redux';
 
 import Gif from './Gif';
 
-import * as resultsActions from '../actions/fetchActions';
+import * as fetchActions from '../actions/fetchActions';
 import * as favouritesActions from '../actions/favouritesActions';
 
 
@@ -21,10 +21,6 @@ class Results extends Component {
         this.onClickTabHandler = this.onClickTabHandler.bind(this);
         this.clearForm = this.clearForm.bind(this);
 
-        this.state = {
-            isRequesting: false,
-            isLoading: false
-        };
     }
 
     componentDidMount() {
@@ -46,8 +42,10 @@ class Results extends Component {
     }
 
     clearForm() {
-        this.setState({ isRequesting: false });
-        this.props.resultsActions.clearGifs();
+        const { clearGifs, gifsUnloaded } = this.props.fetchActions;
+
+        clearGifs();
+        gifsUnloaded();
     }
 
     onClickTabHandler() {
@@ -82,8 +80,7 @@ class Results extends Component {
 
     onSubmitSearchHandler(search) {
         if (search && search.length) {
-            this.setState({ isRequesting: true, isLoading: true });
-            this.props.resultsActions.fetchOnApiGiphy("http://api.giphy.com/v1/gifs/search", {
+            this.props.fetchActions.fetchOnApiGiphy("http://api.giphy.com/v1/gifs/search", {
                 q: search,
                 api_key: "dc6zaTOxFJmzC",
                 limit: 10
@@ -95,7 +92,7 @@ class Results extends Component {
 
     onTabTrending() {
 
-        this.props.resultsActions.fetchOnApiGiphy("http://api.giphy.com/v1/gifs/trending", {
+        this.props.fetchActions.fetchOnApiGiphy("http://api.giphy.com/v1/gifs/trending", {
             api_key: "dc6zaTOxFJmzC",
             limit: 10
         });
@@ -103,7 +100,7 @@ class Results extends Component {
 
     onTabFavourites() {
 
-        this.props.resultsActions.fetchOnApiGiphy("http://api.giphy.com/v1/gifs", {
+        this.props.fetchActions.fetchOnApiGiphy("http://api.giphy.com/v1/gifs", {
             api_key: "dc6zaTOxFJmzC",
             ids: this.props.favouritesGifs.toString()
         });
@@ -111,12 +108,13 @@ class Results extends Component {
 
     onTabRandom() {
 
-        this.props.resultsActions.fetchOnApiGiphy("http://api.giphy.com/v1/gifs/random", {
+        this.props.fetchActions.fetchOnApiGiphy("http://api.giphy.com/v1/gifs/random", {
             api_key: "dc6zaTOxFJmzC"
         });
     }
 
     renderGifsElement(gifsData) {
+
         return gifsData.map(gifData => (
             <Gif
                 key={gifData.id}
@@ -129,14 +127,13 @@ class Results extends Component {
     }
 
     renderResults() {
-        const { isRequesting, isLoading } = this.state;
-        const { gifsData, type: typeRequest } = this.props;
+        const { gifsData, isLoaded, type: typeRequest } = this.props;
 
-        if (typeRequest === 'search' && !isRequesting) {
+        if (typeRequest === 'search' && !isLoaded) {
 
             return <img className="results__noSearchWatermark" src="../assets/magnifier-512.png" />;
 
-        } else if (!gifsData.length && isRequesting && !isLoading) {
+        } else if (!gifsData.length && isLoaded) {
 
             return <p className="results__nothing">Aucun résultats</p>;
 
@@ -166,13 +163,14 @@ class Results extends Component {
 const mapStateToProps = (state) => {
     return {
         gifsData: state.gifsDataReducer,
-        favouritesGifs: state.gifsFavouritesReducer
+        favouritesGifs: state.gifsFavouritesReducer,
+        isLoaded: state.gifsLoadedReducer
     }
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        resultsActions: bindActionCreators(resultsActions, dispatch),
+        fetchActions: bindActionCreators(fetchActions, dispatch),
         favsActions: bindActionCreators(favouritesActions, dispatch)
     }
 };
