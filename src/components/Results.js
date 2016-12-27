@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import axios, { CancelToken } from 'axios';
 import cs from 'classnames';
 
 import { connect } from 'react-redux';
@@ -7,7 +6,7 @@ import { bindActionCreators } from 'redux';
 
 import Gif from './Gif';
 
-import * as resultsActions from '../actions/resultsActions';
+import * as resultsActions from '../actions/fetchActions';
 import * as favouritesActions from '../actions/favouritesActions';
 
 
@@ -20,26 +19,16 @@ class Results extends Component {
         this.onSubmitSearchHandler = this.onSubmitSearchHandler.bind(this);
         this.onClickFavGif = this.onClickFavGif.bind(this);
         this.onClickTabHandler = this.onClickTabHandler.bind(this);
-        this.fetchOnAPIGiphy = this.fetchOnAPIGiphy.bind(this);
         this.clearForm = this.clearForm.bind(this);
 
         this.state = {
             isRequesting: false,
-            isLoading: false,
-            showLoadingMessage: false
+            isLoading: false
         };
     }
 
     componentDidMount() {
         this.onClickTabHandler();
-    }
-
-    componentWillUnmount() {
-        if (this.source) {
-          this.source.cancel();
-        }
-
-        clearTimeout(this.loadingTimeOut);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -91,40 +80,10 @@ class Results extends Component {
 
     }
 
-    fetchOnAPIGiphy(url, params) {
-
-        this.source = CancelToken.source();
-
-        this.setState({
-            isLoading: true
-        });
-
-        this.loadingTimeOut = setTimeout(() => {
-            if (this.state.isLoading) {
-                this.setState({ showLoadingMessage: true });
-            }
-        }, 500);
-
-        axios.get(url, {
-            params: params,
-            cancelToken: this.source.token
-        })
-            .then((response) => {
-                this.setState({
-                    isLoading: false,
-                    showLoadingMessage: false
-                });
-                this.props.resultsActions.fetchSuccessGifs(response.data.data);
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
-    }
-
     onSubmitSearchHandler(search) {
         if (search && search.length) {
-            this.setState({ isRequesting: true });
-            this.fetchOnAPIGiphy("http://api.giphy.com/v1/gifs/search", {
+            this.setState({ isRequesting: true, isLoading: true });
+            this.props.resultsActions.fetchOnApiGiphy("http://api.giphy.com/v1/gifs/search", {
                 q: search,
                 api_key: "dc6zaTOxFJmzC",
                 limit: 10
@@ -136,7 +95,7 @@ class Results extends Component {
 
     onTabTrending() {
 
-        this.fetchOnAPIGiphy("http://api.giphy.com/v1/gifs/trending", {
+        this.props.resultsActions.fetchOnApiGiphy("http://api.giphy.com/v1/gifs/trending", {
             api_key: "dc6zaTOxFJmzC",
             limit: 10
         });
@@ -144,7 +103,7 @@ class Results extends Component {
 
     onTabFavourites() {
 
-        this.fetchOnAPIGiphy("http://api.giphy.com/v1/gifs", {
+        this.props.resultsActions.fetchOnApiGiphy("http://api.giphy.com/v1/gifs", {
             api_key: "dc6zaTOxFJmzC",
             ids: this.props.favouritesGifs.toString()
         });
@@ -152,7 +111,7 @@ class Results extends Component {
 
     onTabRandom() {
 
-        this.fetchOnAPIGiphy("http://api.giphy.com/v1/gifs/random", {
+        this.props.resultsActions.fetchOnApiGiphy("http://api.giphy.com/v1/gifs/random", {
             api_key: "dc6zaTOxFJmzC"
         });
     }
@@ -170,16 +129,12 @@ class Results extends Component {
     }
 
     renderResults() {
-        const { isRequesting, isLoading, showLoadingMessage } = this.state;
+        const { isRequesting, isLoading } = this.state;
         const { gifsData, type: typeRequest } = this.props;
 
         if (typeRequest === 'search' && !isRequesting) {
 
             return <img className="results__noSearchWatermark" src="../assets/magnifier-512.png" />;
-
-        } if (showLoadingMessage) {
-
-            return <p className="results__loading">Chargement en cours...</p>;
 
         } else if (!gifsData.length && isRequesting && !isLoading) {
 

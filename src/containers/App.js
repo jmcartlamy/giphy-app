@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import SearchForm from '../components/SearchForm';
 import Tabs from '../components/Tabs';
 
-import { userInput } from '../actions/searchActions';
+import { userInput } from '../actions/inputSearchActions';
 
 
 class App extends Component {
