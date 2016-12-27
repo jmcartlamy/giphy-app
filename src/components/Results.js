@@ -24,16 +24,14 @@ class Results extends Component {
         this.clearForm = this.clearForm.bind(this);
 
         this.state = {
-            path: typeRequest,
             isRequesting: false,
             isLoading: false,
-            showLoadingMessage: false,
             showLoadingMessage: false
         };
     }
 
     componentDidMount() {
-        this.onClickTabHandler(this.state.path);
+        this.onClickTabHandler();
     }
 
     componentWillUnmount() {
@@ -56,19 +54,16 @@ class Results extends Component {
         ) {
             this.onSubmitSearchHandler(nextQuery.q);
         }
-
-        if (this.props.type === 'random' && nextProps.type === 'random') {
-            console.log('random reloading');
-            this.onTabRandom();
-        }
     }
 
     clearForm() {
         this.setState({ isRequesting: false });
-        this.props.actions.clearGifs();
+        this.props.resultsActions.clearGifs();
     }
 
-    onClickTabHandler(typeRequest) {
+    onClickTabHandler() {
+
+        const { type: typeRequest } = this.props;
 
         if (typeRequest === 'search') {
             const query = this.props.location.query;
@@ -119,7 +114,7 @@ class Results extends Component {
                     isLoading: false,
                     showLoadingMessage: false
                 });
-                this.props.actions.fetchSuccessGifs(response.data.data);
+                this.props.resultsActions.fetchSuccessGifs(response.data.data);
             })
             .catch(function (error) {
                 console.log(error);
@@ -151,7 +146,7 @@ class Results extends Component {
 
         this.fetchOnAPIGiphy("http://api.giphy.com/v1/gifs", {
             api_key: "dc6zaTOxFJmzC",
-            ids: this.state.listFavGifIDs.toString()
+            ids: this.props.favouritesGifs.toString()
         });
     }
 
@@ -168,7 +163,7 @@ class Results extends Component {
                 key={gifData.id}
                 gifId={gifData.id}
                 gifSrc={gifData.image_url}
-                gifFav={this.state.listFavGifIDs.indexOf(gifData.id) > -1}
+                gifFav={this.props.favouritesGifs.indexOf(gifData.id) > -1}
                 onClickFavGifCallback={this.onClickFavGif}
             />
         ));
@@ -197,10 +192,8 @@ class Results extends Component {
 
     render() {
 
-        const { path, isRequesting, isLoading, showLoadingMessage } = this.state;
         const { gifsData } = this.props;
 
-        console.log(this.props);
         const resultsCSSClassnames = cs(
             'results',
             {
@@ -208,14 +201,9 @@ class Results extends Component {
             }
         );
 
-
         return (
             <div className={resultsCSSClassnames}>
-                {path === 'search' && !isRequesting && <img className="results__noSearchWatermark" src="../assets/magnifier-512.png" />}
-                {showLoadingMessage && <p className="results__loading">Chargement en cours...</p>}
-                {path !== 'random' && !gifsData.length && isRequesting && !isLoading && <p className="results__nothing">Aucun résultats</p>}
-                {path !== 'random' && this.renderGifsElement(gifsData)}
-                {path === 'random' && this.renderGifElementRandom(gifsData)}
+                {this.renderResults()}
             </div>
         )
     }
@@ -229,6 +217,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
+        resultsActions: bindActionCreators(resultsActions, dispatch),
         favsActions: bindActionCreators(favouritesActions, dispatch)
     }
 };
