@@ -1,8 +1,8 @@
 {
-  "name": "react-mini-starter",
-  "version": "0.0.1",
-  "description": "A ridiculously small boilerplate to start developing with ES6/ES7/React/Webpack/HMR",
-  "main": "server.js",
+  "name": "giphy-app",
+  "version": "0.3.0",
+  "description": "Find gifs easily with Giphy App. Fav' your best gifs in cache.",
+  "main": "index.js",
   "devDependencies": {
     "babel-core": "^6.3.26",
     "babel-loader": "^6.2.0",
@@ -37,13 +37,9 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mr-wildcard/react-mini-starter.git"
+    "url": "git+https://github.com/jmcartlamy/giphy-app.git"
   },
   "keywords": [],
-  "author": "Julien Viala <dev.vialajulien@gmail.com>",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/mr-wildcard/react-mini-starter/issues"
-  },
-  "homepage": "https://github.com/mr-wildcard/react-mini-starter#readme"
+  "author": "Jean-Marie Cart-Lamy <contact@cartlamy.com>",
+  "homepage": "https://github.com/jmcartlamy/giphy-app"
 }
