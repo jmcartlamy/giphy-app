@@ -8,6 +8,7 @@ import { bindActionCreators } from 'redux';
 import Gif from './Gif';
 
 import * as resultsActions from '../actions/resultsActions';
+import * as favouritesActions from '../actions/favouritesActions';
 
 
 class Results extends Component {
@@ -22,17 +23,12 @@ class Results extends Component {
         this.fetchOnAPIGiphy = this.fetchOnAPIGiphy.bind(this);
         this.clearForm = this.clearForm.bind(this);
 
-        const typeRequest = props.type;
-        const favs = (typeof(Storage) !== 'undefined' && localStorage.getItem('favourites') !== null) ?
-            JSON.parse(localStorage.getItem('favourites')) :
-            [];
-
         this.state = {
             path: typeRequest,
             isRequesting: false,
             isLoading: false,
             showLoadingMessage: false,
-            listFavGifIDs: favs
+            showLoadingMessage: false
         };
     }
 
@@ -89,21 +85,15 @@ class Results extends Component {
     }
 
     onClickFavGif(idFav) {
-        const currentFavs = this.state.listFavGifIDs;
+        const currentFavs = this.props.favouritesGifs;
         const gifIsFaved = currentFavs.indexOf(idFav) > -1;
-        let newFavs = [];
 
-        if (gifIsFaved) {
-            newFavs = currentFavs.filter(id => id !== idFav);
+        if (!gifIsFaved) {
+            this.props.favsActions.addGif(idFav);
         } else {
-            newFavs = currentFavs.concat([idFav]);
+            this.props.favsActions.removeGif(idFav);
         }
 
-        this.setState({
-            listFavGifIDs: newFavs
-        });
-
-        localStorage.setItem('favourites', JSON.stringify(newFavs));
     }
 
     fetchOnAPIGiphy(url, params) {
@@ -232,13 +222,14 @@ class Results extends Component {
 }
 const mapStateToProps = (state) => {
     return {
-       gifsData: state.gifsDataReducer
+        gifsData: state.gifsDataReducer,
+        favouritesGifs: state.gifsFavouritesReducer
     }
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        actions: bindActionCreators(resultsActions, dispatch)
+        favsActions: bindActionCreators(favouritesActions, dispatch)
     }
 };
 
