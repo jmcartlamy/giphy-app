@@ -173,29 +173,36 @@ class Results extends Component {
     }
 
     renderGifsElement(gifsData) {
-        return gifsData.map((gifData, index) => {
-            return (
-                <Gif
-                    key={`gif-${index}`}
-                    gifId={gifData.id}
-                    gifSrc={gifData.images.fixed_width.webp}
-                    gifFav={this.state.listFavGifIDs.indexOf(gifData.id) > -1}
-                    onClickFavGifCallback={this.onClickFavGif}
-                />
-            );
-        })
-    }
-
-    renderGifElementRandom(gifData) {
-        return (
+        return gifsData.map(gifData => (
             <Gif
-                key="gif-1"
+                key={gifData.id}
                 gifId={gifData.id}
                 gifSrc={gifData.image_url}
                 gifFav={this.state.listFavGifIDs.indexOf(gifData.id) > -1}
                 onClickFavGifCallback={this.onClickFavGif}
             />
-        );
+        ));
+    }
+
+    renderResults() {
+        const { isRequesting, isLoading, showLoadingMessage } = this.state;
+        const { gifsData, type: typeRequest } = this.props;
+
+        if (typeRequest === 'search' && !isRequesting) {
+
+            return <img className="results__noSearchWatermark" src="../assets/magnifier-512.png" />;
+
+        } if (showLoadingMessage) {
+
+            return <p className="results__loading">Chargement en cours...</p>;
+
+        } else if (!gifsData.length && isRequesting && !isLoading) {
+
+            return <p className="results__nothing">Aucun résultats</p>;
+
+        } else {
+            return this.renderGifsElement(gifsData);
+        }
     }
 
     render() {
