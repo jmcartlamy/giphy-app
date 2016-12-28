@@ -1,11 +1,14 @@
-import reducer from '../../src/reducers/gifsData.js';
+import reducer, {initialState} from '../../src/reducers/gifs.js';
 
 test('initial state', () => {
-    expect(reducer(undefined, {})).toEqual([]);
+    expect(reducer(undefined, {})).toEqual(initialState);
 });
 
 test('FETCH_SUCCESS_GIFS', () => {
-    const state = [];
+    const state = {
+        loaded: false,
+        data: []
+    };
     Object.freeze(state);
 
     const actions = {
@@ -17,11 +20,17 @@ test('FETCH_SUCCESS_GIFS', () => {
 
     expect(
         reducer(state, actions)
-    ).toEqual([ { url: 'testtest' } ])
+    ).toEqual({
+        loaded: true,
+        data: [ { url: 'testtest' } ]
+    })
 });
 
 test('CLEAR_GIFS', () => {
-    const state = [{ bob: 'test', rtee: 'rhtrez', rerzez: { gregr: 'test'}}];
+    const state = {
+        loaded: true,
+        data: [{ bob: 'test', rtee: 'rhtrez', rerzez: { gregr: 'test'}}]
+    };
     Object.freeze(state);
 
     const actions = {
@@ -33,5 +42,8 @@ test('CLEAR_GIFS', () => {
 
     expect(
         reducer(state, actions)
-    ).toEqual([])
+    ).toEqual({
+        loaded: false,
+        data: []
+    })
 });

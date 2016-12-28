@@ -17,31 +17,13 @@ export const clearGifs = () => {
     }
 };
 
-export const gifsLoaded = () => {
-    return {
-        type: 'GIFS_LOADED',
-    }
-};
-
-export const gifsUnloaded = () => {
-    return {
-        type: 'GIFS_UNLOADED'
-    }
-};
-
-
-export const requestGiphy = (url, params) => {
-    return axios.get(url, {
-        params: params
-    })
-};
-
 export const fetchOnApiGiphy = (url, params) => {
     return dispatch => {
-        return requestGiphy(url, params)
+        return axios.get(url, {
+                params
+            })
             .then((response) => {
                 dispatch(fetchSuccessGifs(response.data.data));
-                dispatch(gifsLoaded());
             })
             .catch(function (error) {
                 console.log(error);

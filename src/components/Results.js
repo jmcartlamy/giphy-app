@@ -42,10 +42,9 @@ class Results extends Component {
     }
 
     clearForm() {
-        const { clearGifs, gifsUnloaded } = this.props.fetchActions;
+        const { clearGifs } = this.props.fetchActions;
 
         clearGifs();
-        gifsUnloaded();
     }
 
     onClickTabHandler() {
@@ -113,9 +112,9 @@ class Results extends Component {
         });
     }
 
-    renderGifsElement(gifsData) {
+    renderGifsElement(gifs) {
 
-        return gifsData.map(gifData => (
+        return gifs.data.map(gifData => (
             <Gif
                 key={gifData.id}
                 gifId={gifData.id}
@@ -127,29 +126,29 @@ class Results extends Component {
     }
 
     renderResults() {
-        const { gifsData, isLoaded, type: typeRequest } = this.props;
+        const { gifs, type: typeRequest } = this.props;
 
-        if (typeRequest === 'search' && !isLoaded) {
+        if (typeRequest === 'search' && !gifs.loaded) {
 
             return <img className="results__noSearchWatermark" src="../assets/magnifier-512.png" />;
 
-        } else if (!gifsData.length && isLoaded) {
+        } else if (!gifs.data.length && gifs.loaded) {
 
             return <p className="results__nothing">Aucun résultats</p>;
 
         } else {
-            return this.renderGifsElement(gifsData);
+            return this.renderGifsElement(gifs);
         }
     }
 
     render() {
 
-        const { gifsData } = this.props;
+        const { gifs } = this.props;
 
         const resultsCSSClassnames = cs(
             'results',
             {
-                'results-column': gifsData.length > 1
+                'results-column': gifs.data.length > 1
             }
         );
 
@@ -162,9 +161,8 @@ class Results extends Component {
 }
 const mapStateToProps = (state) => {
     return {
-        gifsData: state.gifsDataReducer,
-        favouritesGifs: state.gifsFavouritesReducer,
-        isLoaded: state.gifsLoadedReducer
+        gifs: state.gifsDataReducer,
+        favouritesGifs: state.gifsFavouritesReducer
     }
 };
 

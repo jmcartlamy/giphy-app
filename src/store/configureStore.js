@@ -16,16 +16,6 @@ export default () => {
         )
     );
 
-    /*
-    let currentState = store.getState();
-    store.subscribe(() => {
-        const nextState = store.getState();
-        if (nextState.gifsFavouritesReducer !== currentState.gifsFavouritesReducer) {
-            localStorage.setItem('favourites', JSON.stringify(nextState.gifsFavouritesReducer))
-        }
-        currentState = nextState;
-    });
-    */
 
     const w = watch(store.getState, 'gifsFavouritesReducer');
     store.subscribe(w((newVal) => {
