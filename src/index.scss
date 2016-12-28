@@ -104,6 +104,21 @@ header {
   &__loading, &__nothing {
     font-size: 2rem;
   }
+  &__reloadRandomGif {
+    font-size: 2rem;
+    max-width: 15rem;
+    margin: 0 auto 1rem auto;
+    user-select: none;
+    cursor: pointer;
+  }
+
+  &__reloadRandomGif:hover {
+    background-color: rgba(125, 190, 189, 0.2);
+  }
+
+  &__reloadRandomGif:active {
+    background-color: rgba(125, 190, 189, 0.1);
+  }
 
   &__noSearchWatermark {
     opacity: 0.2;

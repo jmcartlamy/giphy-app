@@ -20,6 +20,8 @@ class Results extends Component {
         this.onClickFavGif = this.onClickFavGif.bind(this);
         this.onClickTabHandler = this.onClickTabHandler.bind(this);
         this.clearForm = this.clearForm.bind(this);
+        this.onTabRandom = this.onTabRandom.bind(this);
+        console.log(props)
 
     }
 
@@ -74,7 +76,6 @@ class Results extends Component {
         } else {
             this.props.favsActions.removeGif(idFav);
         }
-
     }
 
     onSubmitSearchHandler(search) {
@@ -136,6 +137,13 @@ class Results extends Component {
 
             return <p className="results__nothing">Aucun résultats</p>;
 
+        } else if (typeRequest === 'random') {
+            return (
+                <div>
+                    <div className="results__reloadRandomGif" onClick={this.onTabRandom}>⟳</div>
+                    {this.renderGifsElement(gifs)}
+                </div>
+            );
         } else {
             return this.renderGifsElement(gifs);
         }

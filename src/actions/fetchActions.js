@@ -19,6 +19,7 @@ export const clearGifs = () => {
 
 export const fetchOnApiGiphy = (url, params) => {
     return dispatch => {
+        dispatch(clearGifs());
         return axios.get(url, {
                 params
             })
