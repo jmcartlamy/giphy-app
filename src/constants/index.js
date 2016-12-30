@@ -1,0 +1,1 @@
+export const API_URL = `${location.protocol}//api.giphy.com/v1/gifs`;

@@ -4,6 +4,8 @@ import cs from 'classnames';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
+import { API_URL } from '../constants';
+
 import Gif from './Gif';
 
 import * as fetchActions from '../actions/fetchActions';
@@ -81,7 +83,7 @@ class Results extends Component {
 
     onSubmitSearchHandler(search) {
         if (search && search.length) {
-            this.props.fetchActions.fetchOnApiGiphy("http://api.giphy.com/v1/gifs/search", {
+            this.props.fetchActions.fetchOnApiGiphy(`${API_URL}/search`, {
                 q: search,
                 api_key: "dc6zaTOxFJmzC",
                 limit: 10
@@ -93,7 +95,7 @@ class Results extends Component {
 
     onTabTrending() {
 
-        this.props.fetchActions.fetchOnApiGiphy("http://api.giphy.com/v1/gifs/trending", {
+        this.props.fetchActions.fetchOnApiGiphy(`${API_URL}/trending`, {
             api_key: "dc6zaTOxFJmzC",
             limit: 10
         });
@@ -101,7 +103,7 @@ class Results extends Component {
 
     onTabFavourites() {
 
-        this.props.fetchActions.fetchOnApiGiphy("http://api.giphy.com/v1/gifs", {
+        this.props.fetchActions.fetchOnApiGiphy(API_URL, {
             api_key: "dc6zaTOxFJmzC",
             ids: this.props.favouritesGifs.toString()
         });
@@ -109,7 +111,7 @@ class Results extends Component {
 
     onTabRandom() {
 
-        this.props.fetchActions.fetchOnApiGiphy("http://api.giphy.com/v1/gifs/random", {
+        this.props.fetchActions.fetchOnApiGiphy(`${API_URL}/random`, {
             api_key: "dc6zaTOxFJmzC"
         });
     }
