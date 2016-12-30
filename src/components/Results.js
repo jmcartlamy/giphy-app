@@ -9,6 +9,7 @@ import Gif from './Gif';
 import * as fetchActions from '../actions/fetchActions';
 import * as favouritesActions from '../actions/favouritesActions';
 
+import magnifierImgSrc from '../../assets/magnifier-512.png';
 
 class Results extends Component {
 
@@ -131,7 +132,7 @@ class Results extends Component {
 
         if (typeRequest === 'search' && !gifs.loaded) {
 
-            return <img className="results__noSearchWatermark" src="../assets/magnifier-512.png" />;
+            return <img className="results__noSearchWatermark" src={magnifierImgSrc} />;
 
         } else if (!gifs.data.length && gifs.loaded) {
 

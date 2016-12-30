@@ -12,10 +12,12 @@
     "babel-preset-react": "^6.3.13",
     "babel-preset-stage-1": "^6.3.13",
     "css-loader": "^0.26.1",
+    "file-loader": "^0.9.0",
     "jest": "^18.0.0",
     "react-hot-loader": "^2.0.0-alpha-4",
     "sass-loader": "^4.0.2",
     "style-loader": "^0.13.1",
+    "url-loader": "^0.5.7",
     "webpack": "^1.9.6",
     "webpack-dev-server": "^1.8.2"
   },
@@ -33,6 +35,7 @@
   "scripts": {
     "start": "node server.js",
     "test": "jest",
+    "build": "webpack --config  webpack.config.build.js",
     "test-dev": "export JEST_HIDE_USAGE=1 && jest --watch"
   },
   "repository": {

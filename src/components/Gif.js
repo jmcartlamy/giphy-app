@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import cs from 'classnames';
+import loadingGifSrc from '../../assets/loading.svg';
 
 class Gif extends Component {
 
@@ -52,7 +53,7 @@ class Gif extends Component {
                 loading: !loaded
             })}>
                 {!loaded &&
-                     <img className="containerGifs__gifOnLoad" src="../assets/loading.svg"/>
+                     <img className="containerGifs__gifOnLoad" src={loadingGifSrc} />
                 }
                 {loaded &&
                     <div className="containerGifs__overlay" style={{height: heightGif + 'px'}}>

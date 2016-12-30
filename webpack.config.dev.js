@@ -10,8 +10,7 @@ module.exports = {
   ],
   output: {
     path: path.join(__dirname, 'dist'),
-    filename: 'bundle.js',
-    publicPath: '/static/'
+    filename: 'bundle.js'
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
@@ -21,16 +20,22 @@ module.exports = {
     extensions: ['', '.js', '.jsx']
   },
   module: {
-    loaders: [{
-      test: /\.(js|jsx)?$/,
-      loaders: ['react-hot', 'babel'],
-      include: [
-        path.join(__dirname, 'src')
-      ]
-    },
-    {
-      test: /\.scss$/,
-      loaders: ["style", "css", "sass"]
-    }]
+    loaders: [
+        {
+            test: /\.(js|jsx)?$/,
+            loaders: ['react-hot', 'babel'],
+            include: [
+                path.join(__dirname, 'src')
+            ]
+        },
+        {
+            test: /\.scss$/,
+            loaders: ["style", "css", "sass"]
+        },
+        {
+            test: /\.(gif|png|jpg|svg)$/,
+            loaders: ['url-loader?limit=10000']
+        }
+    ]
   }
 };
