@@ -1,8 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Router, Route, browserHistory, IndexRedirect } from 'react-router';
+import { Router, Route, IndexRedirect, browserHistory } from 'react-router';
 import { Provider } from 'react-redux';
 import configureStore from './store/configureStore.js';
+import { useBasename } from 'history';
 
 import App from './containers/App';
 import Search from './components/Search';
@@ -14,9 +15,16 @@ import './index.scss';
 
 const store = configureStore();
 
+let history;
+if (location.hostname.indexOf('github.io') !== -1) {
+    history = useBasename(() => browserHistory)({ basename: 'giphy-app' });
+} else {
+    history = browserHistory;
+}
+
 ReactDOM.render((
     <Provider store={store}>
-        <Router history={browserHistory}>
+        <Router history={history}>
             <Route path="/" component={App}>
                 <IndexRedirect to="/search" />
                 <Route path="search" component={Search} />
