@@ -17,6 +17,7 @@ const store = configureStore();
 
 let history;
 if (location.hostname.indexOf('github.io') !== -1) {
+    console.log('HERE');
     history = useBasename(() => browserHistory)({ basename: 'giphy-app' });
 } else {
     history = browserHistory;
