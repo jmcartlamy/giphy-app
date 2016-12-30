@@ -2,6 +2,8 @@
 
 Find gifs easily with Giphy App. Fav' your best gifs in cache.
 
+See my app here : https://jmcartlamy.github.io/giphy-app/
+
 Contains :
 - Search
 - Trending gifs
