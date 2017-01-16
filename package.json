@@ -1,6 +1,6 @@
 {
   "name": "giphy-app",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Find gifs easily with Giphy App. Fav' your best gifs in cache.",
   "main": "index.js",
   "devDependencies": {
