@@ -94,6 +94,8 @@ header {
 
 .results-column {
   column-count: 4;
+  -webkit-column-count: 4; /* Chrome, Safari, Opera */
+  -moz-column-count: 4; /* Firefox */
   column-gap: 1rem;
 
 }
