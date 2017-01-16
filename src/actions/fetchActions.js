@@ -5,7 +5,7 @@ export const fetchSuccessGifs = gifsData => {
         type: 'FETCH_SUCCESS_GIFS',
         payload: {
             data: Array.isArray(gifsData) ? gifsData.map(g => ({
-                ...g, image_url: g.images.fixed_width.webp
+                ...g, image_url: g.images.fixed_width.url
             })) : [gifsData]
         }
     }
